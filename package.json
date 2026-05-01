@@ -1,7 +1,7 @@
 {
-  "name": "evtx-investigator",
+  "name": "eventsift",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,8 +16,6 @@
     "papaparse": "^5.5.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "vite-plugin-top-level-await": "^1.6.0",
-    "vite-plugin-wasm": "^3.6.0",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

@@ -10,9 +10,8 @@ export interface ColumnMeta {
   noFilter?: boolean
 }
 
-// Every row (EVTX or CSV) is a string map plus internal metadata.
 export interface DataRow {
-  _flagKey: string   // unique key used for flagging (EventRecordID or row index)
+  _flagKey: string   // unique key for flagging (EventRecordID or row index)
   _rowIndex: number
   [key: string]: string | number
 }
@@ -35,15 +34,13 @@ export interface FileEntry {
   showFlaggedOnly: boolean
   columnVisibility: Record<string, boolean>  // columnId → visible (missing = true)
   columnWidths: Record<string, number>       // columnId → px width override
+  columnOrder?: string[]                     // ordered column IDs (undefined = natural order)
 }
 
-// Messages sent from workers back to the main thread
 export type WorkerMessage =
   | { type: 'progress'; loaded: number; total: number }
-  | { type: 'columns'; columns: ColumnMeta[] }
   | { type: 'done'; rows: DataRow[]; columns: ColumnMeta[] }
   | { type: 'error'; message: string }
 
-// Messages sent from main thread to workers
 export type WorkerRequest =
   | { type: 'parse'; buffer: ArrayBuffer; fileName: string }

@@ -120,6 +120,15 @@ input, textarea {
   opacity: 0.6;
 }
 
+/* Header scroll container — scrollable (JS-synced with rows) but scrollbar hidden */
+.header-scroll {
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.header-scroll::-webkit-scrollbar {
+  display: none; /* WebKit/Blink */
+}
+
 /* Flash animation for flag navigation */
 @keyframes rowFlash {
   0%   { outline: 2px solid var(--accent-blue); outline-offset: -2px; }

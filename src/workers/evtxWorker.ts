@@ -55,7 +55,6 @@ self.onmessage = (e: MessageEvent) => {
     }
 
     self.postMessage({ type: 'progress', loaded, total: loaded })
-    self.postMessage({ type: 'columns', columns: EVTX_COLUMNS })
     self.postMessage({ type: 'done', rows, columns: EVTX_COLUMNS })
   } catch (err) {
     self.postMessage({ type: 'error', message: (err as Error).message ?? String(err) })

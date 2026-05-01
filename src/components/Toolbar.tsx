@@ -26,6 +26,14 @@ export function Toolbar() {
   const columnsMenuRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
 
+  // Local date buffers — only committed to store when user clicks OK
+  const [localFrom, setLocalFrom] = useState(timeFrom)
+  const [localTo, setLocalTo] = useState(timeTo)
+
+  // Sync local state when the store clears the time range (e.g. "clear" or file switch)
+  useEffect(() => { setLocalFrom(timeFrom) }, [timeFrom])
+  useEffect(() => { setLocalTo(timeTo) }, [timeTo])
+
   const metadata = entry?.metadata
   const columnMeta = entry?.columns ?? []
   const columnFilters = entry?.columnFilters ?? {}
@@ -185,8 +193,8 @@ export function Toolbar() {
         <span className="text-[10px] uppercase tracking-wide font-semibold" style={{ color: 'var(--text-muted)' }}>From</span>
         <input
           type="datetime-local"
-          value={timeFrom}
-          onChange={e => setTimeRange(e.target.value, timeTo)}
+          value={localFrom}
+          onChange={e => setLocalFrom(e.target.value)}
           className="h-6 px-1.5 text-xs rounded border outline-none"
           style={{
             background: 'var(--bg-filter)',
@@ -199,8 +207,8 @@ export function Toolbar() {
         <span className="text-[10px] uppercase tracking-wide font-semibold" style={{ color: 'var(--text-muted)' }}>To</span>
         <input
           type="datetime-local"
-          value={timeTo}
-          onChange={e => setTimeRange(timeFrom, e.target.value)}
+          value={localTo}
+          onChange={e => setLocalTo(e.target.value)}
           className="h-6 px-1.5 text-xs rounded border outline-none"
           style={{
             background: 'var(--bg-filter)',
@@ -210,8 +218,24 @@ export function Toolbar() {
             width: 158,
           }}
         />
+        <button
+          onClick={() => setTimeRange(localFrom, localTo)}
+          disabled={!localFrom && !localTo}
+          className="h-6 px-2 text-xs rounded border transition-colors disabled:opacity-40"
+          style={{
+            borderColor: (localFrom || localTo) ? 'var(--accent-blue)' : 'var(--border)',
+            color: (localFrom || localTo) ? 'var(--accent-blue)' : 'var(--text-muted)',
+            background: 'transparent',
+          }}
+        >
+          OK
+        </button>
         {hasTimeFilter && (
-          <button onClick={clearTimeRange} className="text-xs underline-offset-2 hover:underline" style={{ color: 'var(--text-muted)' }}>
+          <button
+            onClick={() => { setLocalFrom(''); setLocalTo(''); clearTimeRange() }}
+            className="text-xs underline-offset-2 hover:underline"
+            style={{ color: 'var(--text-muted)' }}
+          >
             clear
           </button>
         )}

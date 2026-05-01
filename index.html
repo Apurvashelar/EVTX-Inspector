@@ -3,7 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EVTX Investigator</title>
+
+    <title>EventSift — Windows Event Log Analyzer | EVTX & CSV Viewer</title>
+    <meta name="description" content="Browser-based DFIR tool for analyzing Windows Event Logs (.evtx) and CSV exports. Filter, flag, and investigate events entirely offline — no uploads, no installation." />
+    <meta name="keywords" content="evtx viewer, windows event log analyzer, dfir tool, evtx parser, event log browser, security audit, incident response, log analysis, offline event viewer" />
+    <meta name="author" content="EventSift" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="EventSift — Windows Event Log Analyzer" />
+    <meta property="og:description" content="Investigate Windows EVTX and CSV event logs entirely in-browser. Zero uploads, zero telemetry. Fast, private, offline-first DFIR." />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EventSift — Windows Event Log Analyzer" />
+    <meta name="twitter:description" content="Fast, private, browser-based EVTX and event log CSV analyzer for incident response and DFIR." />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#0d1117" />
+
+    <!-- Inline script: apply stored theme before React renders to prevent flash -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('evtx-theme');
+        document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -78,6 +78,7 @@ interface AppState {
   setColumnVisibility: (columnId: string, visible: boolean) => void
   resetColumnVisibility: () => void
   setColumnWidth: (columnId: string, width: number) => void
+  setColumnOrder: (colIds: string[]) => void
 
   setLoading: (progress: number) => void
   setLoadError: (msg: string) => void
@@ -238,6 +239,19 @@ export const useAppStore = create<AppState>()((set) => ({
             ...entry,
             columnWidths: { ...entry.columnWidths, [columnId]: width },
           },
+        },
+      }
+    }),
+
+  setColumnOrder: (colIds) =>
+    set(state => {
+      if (!state.activeFileId) return {}
+      const entry = state.files[state.activeFileId]
+      if (!entry) return {}
+      return {
+        files: {
+          ...state.files,
+          [state.activeFileId]: { ...entry, columnOrder: colIds },
         },
       }
     }),
