@@ -4,51 +4,145 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>EVTX Inspector — Windows Event Log Analyzer | EVTX & CSV Viewer Online</title>
-    <meta name="description" content="Free browser-based EVTX viewer and Windows Event Log analyzer. Parse, filter, and investigate .evtx files and CSV exports entirely offline — no uploads, no installation." />
-    <meta name="keywords" content="evtx viewer online, evtx inspector, evtx analyzer, windows event log viewer online, evtx parser browser, dfir tool, event log analyzer, incident response, evtx viewer free, evtx file viewer" />
+    <!-- ===== Primary Meta ===== -->
+    <title>EVTX-Inspector - Online Windows Event Explorer</title>
+    <meta name="description" content="Free browser-based EVTX viewer and Windows Event Log analyzer. Open and investigate .evtx files and CSV exports entirely offline — no uploads, no installation required. Built for DFIR and incident response." />
+    <meta name="keywords" content="evtx viewer online, evtx inspector, windows event log viewer online, evtx analyzer, evtx parser browser, dfir tool, event log analyzer, incident response, evtx viewer free, evtx file viewer, windows security events, event viewer online, log analysis tool" />
     <meta name="author" content="EVTX Inspector" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://evtx-inspector.apurvashelar303.workers.dev/" />
 
-    <!-- Open Graph -->
+    <!-- ===== Favicon / Icons / Manifest ===== -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ===== Open Graph (Facebook, LinkedIn, Slack, Discord) ===== -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="EVTX Inspector — Windows Event Log Analyzer Online" />
-    <meta property="og:description" content="Free EVTX viewer and Windows Event Log analyzer that runs in your browser. Zero uploads, zero telemetry. Fast, private, offline-first DFIR." />
+    <meta property="og:url" content="https://evtx-inspector.apurvashelar303.workers.dev/" />
+    <meta property="og:site_name" content="EVTX Inspector" />
+    <meta property="og:title" content="EVTX-Inspector - Online Windows Event Explorer" />
+    <meta property="og:description" content="Free EVTX viewer that runs entirely in your browser. Zero uploads, zero telemetry. Parse, filter, and investigate Windows Event Logs offline — perfect for DFIR and incident response." />
+    <meta property="og:image" content="https://evtx-inspector.apurvashelar303.workers.dev/og-image.png" />
+    <meta property="og:image:secure_url" content="https://evtx-inspector.apurvashelar303.workers.dev/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="EVTX Inspector — Online Windows Event Log Analyzer" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter Card -->
+    <!-- ===== Twitter / X Card ===== -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="EVTX Inspector — Windows Event Log Analyzer Online" />
-    <meta name="twitter:description" content="Free, private, browser-based EVTX viewer and Windows Event Log analyzer for incident response and DFIR. No uploads required." />
+    <meta name="twitter:site" content="@EVTXInspector" />
+    <meta name="twitter:title" content="EVTX-Inspector - Online Windows Event Explorer" />
+    <meta name="twitter:description" content="Free, private, browser-based EVTX viewer for incident response and DFIR. Open Windows Event Logs in seconds — no uploads, no installation." />
+    <meta name="twitter:image" content="https://evtx-inspector.apurvashelar303.workers.dev/og-image.png" />
+    <meta name="twitter:image:alt" content="EVTX Inspector — browser-based Windows Event Log analyzer" />
 
-    <!-- Theme color for mobile browsers -->
+    <!-- ===== Mobile / PWA ===== -->
     <meta name="theme-color" content="#0d1117" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="EVTX Inspector" />
+    <meta name="application-name" content="EVTX Inspector" />
 
-    <!-- Structured data for rich search results -->
+    <!-- ===== Google Search Console ownership verification =====
+         1. Go to https://search.google.com/search-console
+         2. Add property → URL prefix → paste your deployed URL
+         3. Choose "HTML tag" verification method
+         4. Uncomment and replace the content value below with your code
+    -->
+    <!-- <meta name="google-site-verification" content="REPLACE_WITH_YOUR_GSC_VERIFICATION_CODE" /> -->
+
+    <!-- ===== Structured Data — SoftwareApplication ===== -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "EVTX Inspector",
-      "url": "https://evtxinspector.app",
+      "alternateName": "EVTX-Inspector",
+      "url": "https://evtx-inspector.apurvashelar303.workers.dev/",
       "description": "Free browser-based EVTX viewer and Windows Event Log analyzer. Parse, filter, and investigate .evtx files entirely offline with zero uploads.",
       "applicationCategory": "SecurityApplication",
+      "applicationSubCategory": "DFIR Tool",
       "operatingSystem": "Web Browser",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "browserRequirements": "Requires JavaScript. Chrome 90+, Firefox 90+, Edge 90+, Safari 14+.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "featureList": [
-        "Windows EVTX file parsing",
+        "Windows EVTX file parsing (no upload)",
         "CSV event log import",
-        "Virtual scroll for large files",
+        "Virtual scroll for 100k+ events",
         "Per-column OR filtering",
-        "Row flagging and annotation",
-        "Time range filtering",
-        "Column reordering and resizing",
+        "Global search across all columns",
+        "Row flagging and annotation (Suspicious / Reviewed / Noteworthy)",
+        "Time range filtering with date pickers",
+        "Column reordering, resizing, and visibility control",
+        "Batch row operations via checkboxes",
+        "Export flagged rows to CSV",
         "Dark and light mode",
-        "Zero-upload privacy"
+        "Zero-upload, zero-telemetry privacy"
+      ],
+      "screenshot": "https://evtx-inspector.apurvashelar303.workers.dev/og-image.png"
+    }
+    </script>
+
+    <!-- ===== Structured Data — FAQPage ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I open an EVTX file online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Drag and drop your .evtx file onto EVTX Inspector — or click the + button in the sidebar. The file is parsed entirely in your browser using a Web Worker. Nothing is uploaded to any server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is EVTX Inspector free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. EVTX Inspector is completely free with no registration, no ads, and no data collection. All processing happens locally in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does EVTX Inspector upload my log files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Zero data leaves your browser. EVTX Inspector has no backend server. All parsing, filtering, and analysis runs locally via Web Workers and localStorage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file formats does EVTX Inspector support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EVTX Inspector supports native .evtx binary Windows Event Log files and CSV exports from tools like EvtxECmd and Get-WinEvent."
+          }
+        }
       ]
     }
     </script>
 
-    <!-- Inline script: apply stored theme before React renders to prevent flash -->
+    <!-- ===== Cloudflare Web Analytics =====
+         Privacy-first, no cookies — ideal for a zero-telemetry tool.
+         1. Open your Cloudflare dashboard
+         2. Go to Analytics & Logs → Web Analytics → Add a site
+         3. Copy your beacon token and paste it below
+    -->
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+         data-cf-beacon='{"token": "REPLACE_WITH_YOUR_CF_ANALYTICS_TOKEN"}'></script> -->
+
+    <!-- ===== Theme flash prevention — must run synchronously before React ===== -->
     <script>
       (function(){
         var t = localStorage.getItem('evtx-theme');

@@ -68,6 +68,7 @@ interface AppState {
 
   // Actions
   addFile: (entry: FileEntry) => void
+  restoreFile: (entry: FileEntry) => void
   switchFile: (id: string) => void
   removeFile: (id: string) => void
   toggleSidebar: () => void
@@ -128,6 +129,12 @@ export const useAppStore = create<AppState>()((set) => ({
       files: { ...state.files, [entry.id]: entry },
       activeFileId: entry.id,
       isSample: false,
+    })),
+
+  // Restores a persisted file without changing activeFileId
+  restoreFile: (entry) =>
+    set(state => ({
+      files: { ...state.files, [entry.id]: entry },
     })),
 
   switchFile: (id) =>
@@ -316,6 +323,7 @@ export const useAppStore = create<AppState>()((set) => ({
 
 import EvtxWorker from '../workers/evtxWorker?worker'
 import CsvWorker from '../workers/csvWorker?worker'
+import { persistFile, unpersistFile } from '../utils/persistence'
 
 export async function loadFile(file: File): Promise<void> {
   const store = useAppStore.getState()
@@ -334,6 +342,9 @@ export async function loadFile(file: File): Promise<void> {
       store.setLoading(Math.round((msg.loaded / msg.total) * 100))
     } else if (msg.type === 'done') {
       store.setData(file, fileType, hash, msg.columns, msg.rows)
+      // Persist the loaded file so it survives page refresh
+      const entry = useAppStore.getState().files[hash]
+      if (entry) persistFile(entry).catch(() => {})
       worker.terminate()
     } else if (msg.type === 'error') {
       store.setLoadError(msg.message)
@@ -347,4 +358,9 @@ export async function loadFile(file: File): Promise<void> {
   }
 
   worker.postMessage({ type: 'parse', buffer, fileName: file.name }, [buffer])
+}
+
+export async function removeFileAndUnpersist(id: string): Promise<void> {
+  useAppStore.getState().removeFile(id)
+  await unpersistFile(id).catch(() => {})
 }

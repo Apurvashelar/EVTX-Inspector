@@ -1,0 +1,28 @@
+{
+  "name": "EVTX Inspector",
+  "short_name": "EVTX Inspector",
+  "description": "Online Windows Event Log analyzer — EVTX & CSV viewer with zero uploads and zero telemetry.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["security", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "type": "image/png",
+      "sizes": "1200x630",
+      "label": "EVTX Inspector — Windows Event Log table view"
+    }
+  ]
+}

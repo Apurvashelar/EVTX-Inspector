@@ -14,6 +14,8 @@
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.13.24",
     "@ts-evtx/core": "^1.1.1",
+    "buffer": "^6.0.3",
+    "idb-keyval": "^6.2.2",
     "papaparse": "^5.5.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

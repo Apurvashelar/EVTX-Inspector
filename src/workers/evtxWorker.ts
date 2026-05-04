@@ -1,6 +1,15 @@
 // Web Worker: parses an EVTX file from an ArrayBuffer using @ts-evtx/core.
 // The EvtxFile constructor is called directly (private in TS, public in JS),
 // bypassing the Node.js fs-dependent open() factory method.
+
+// Polyfill Buffer for production builds — Rollup does not include it automatically
+// but @ts-evtx/core uses it internally when rendering XML.
+import { Buffer as _Buffer } from 'buffer'
+if (typeof globalThis.Buffer === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(globalThis as any).Buffer = _Buffer
+}
+
 import { EvtxFile } from '@ts-evtx/core'
 import { extractEvtxFields } from '../utils/evtxXmlExtractor'
 import type { ColumnMeta, DataRow } from '../types'
@@ -44,6 +53,7 @@ self.onmessage = (e: MessageEvent) => {
     for (const record of file.records()) {
       try {
         const xml = record.renderXml()
+        if (!xml) continue
         const fields = extractEvtxFields(xml)
         const flagKey = fields.EventRecordID || String(loaded)
         rows.push({ _flagKey: flagKey, _rowIndex: loaded, ...fields })

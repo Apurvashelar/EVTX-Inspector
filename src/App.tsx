@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useAppStore, useActiveFile } from './store/useAppStore'
+import { loadFile } from './store/useAppStore'
+import { loadPersistedFiles } from './utils/persistence'
 import { FileSidebar } from './components/FileSidebar'
 import { EventTable } from './components/EventTable'
 import { Toolbar } from './components/Toolbar'
@@ -26,6 +28,69 @@ export default function App() {
   const { isLoading, loadError } = useAppStore()
   const activeFile = useActiveFile()
   const hasActiveFile = !!activeFile
+
+  // Drag overlay state — counter handles nested enter/leave events
+  const [isDragOver, setIsDragOver] = useState(false)
+  const dragCounter = useRef(0)
+
+  const handleDragEnter = useCallback((e: DragEvent) => {
+    if (!e.dataTransfer?.types.includes('Files')) return
+    dragCounter.current++
+    setIsDragOver(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e: DragEvent) => {
+    if (!e.dataTransfer?.types.includes('Files')) return
+    dragCounter.current--
+    if (dragCounter.current <= 0) {
+      dragCounter.current = 0
+      setIsDragOver(false)
+    }
+  }, [])
+
+  const handleDragOver = useCallback((e: DragEvent) => {
+    e.preventDefault()
+  }, [])
+
+  const handleDrop = useCallback((e: DragEvent) => {
+    e.preventDefault()
+    dragCounter.current = 0
+    setIsDragOver(false)
+    const file = e.dataTransfer?.files[0]
+    if (!file) return
+    const ext = file.name.toLowerCase().split('.').pop()
+    if (ext !== 'evtx' && ext !== 'csv') {
+      useAppStore.getState().setLoadError('Unsupported file type. Please drop an .evtx or .csv file.')
+      return
+    }
+    loadFile(file)
+  }, [])
+
+  // Attach window-level drag listeners
+  useEffect(() => {
+    window.addEventListener('dragenter', handleDragEnter)
+    window.addEventListener('dragleave', handleDragLeave)
+    window.addEventListener('dragover', handleDragOver)
+    window.addEventListener('drop', handleDrop)
+    return () => {
+      window.removeEventListener('dragenter', handleDragEnter)
+      window.removeEventListener('dragleave', handleDragLeave)
+      window.removeEventListener('dragover', handleDragOver)
+      window.removeEventListener('drop', handleDrop)
+    }
+  }, [handleDragEnter, handleDragLeave, handleDragOver, handleDrop])
+
+  // Restore persisted files on mount
+  useEffect(() => {
+    loadPersistedFiles().then(files => {
+      if (files.length === 0) return
+      const store = useAppStore.getState()
+      files.forEach(entry => store.restoreFile(entry))
+      // Switch to the last file restored
+      const last = files[files.length - 1]
+      store.switchFile(last.id)
+    })
+  }, [])
 
   return (
     <div className="flex flex-col h-screen" style={{ background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
@@ -108,6 +173,49 @@ export default function App() {
           </main>
         </div>
       </div>
+
+      {/* Global drag-and-drop overlay */}
+      {isDragOver && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(13,17,23,0.85)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 16,
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            style={{
+              border: '2px dashed var(--accent-blue)',
+              borderRadius: 16,
+              padding: '48px 64px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 14,
+              background: 'rgba(88,166,255,0.06)',
+            }}
+          >
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style={{ color: 'var(--accent-blue)' }}>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              <polyline points="17 8 12 3 7 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+            <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--accent-blue)', letterSpacing: '-0.02em' }}>
+              Drop EVTX / CSV file here
+            </span>
+            <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+              File is processed locally — nothing is uploaded
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

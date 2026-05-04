@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://evtxinspector.app/sitemap.xml
+# Block nothing — this is a single-page app with no private paths
+Disallow:
+
+Sitemap: https://evtx-inspector.apurvashelar303.workers.dev/sitemap.xml

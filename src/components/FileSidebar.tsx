@@ -1,5 +1,5 @@
 import { useRef, useCallback } from 'react'
-import { useAppStore, useFlagStore, loadFile } from '../store/useAppStore'
+import { useAppStore, useFlagStore, loadFile, removeFileAndUnpersist } from '../store/useAppStore'
 import { SAMPLE_FILE_ENTRY } from '../data/sampleData'
 import type { FlagType } from '../types'
 
@@ -10,7 +10,7 @@ const FLAG_COLORS: Record<FlagType, string> = {
 }
 
 export function FileSidebar() {
-  const { files, activeFileId, sidebarCollapsed, switchFile, removeFile, toggleSidebar } = useAppStore()
+  const { files, activeFileId, sidebarCollapsed, switchFile, toggleSidebar } = useAppStore()
   const { getFlags } = useFlagStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -137,17 +137,19 @@ export function FileSidebar() {
 
       {/* File list */}
       <div className="flex-1 overflow-y-auto py-1">
-        {/* Sample entry — always available */}
-        <SidebarItem
-          id="__sample__"
-          name="sample_security_events.evtx"
-          type="sample"
-          rowCount={SAMPLE_FILE_ENTRY.metadata.totalRows}
-          flags={getFlags('__sample__')}
-          isActive={activeFileId === '__sample__'}
-          onSelect={() => switchFile('__sample__')}
-          onRemove={null}
-        />
+        {/* Sample entry — shown only if it's still in the files map */}
+        {'__sample__' in files && (
+          <SidebarItem
+            id="__sample__"
+            name="sample_security_events.evtx"
+            type="sample"
+            rowCount={SAMPLE_FILE_ENTRY.metadata.totalRows}
+            flags={getFlags('__sample__')}
+            isActive={activeFileId === '__sample__'}
+            onSelect={() => switchFile('__sample__')}
+            onRemove={() => removeFileAndUnpersist('__sample__')}
+          />
+        )}
 
         {fileEntries.map(f => (
           <SidebarItem
@@ -159,7 +161,7 @@ export function FileSidebar() {
             flags={getFlags(f.metadata.hash)}
             isActive={activeFileId === f.id}
             onSelect={() => switchFile(f.id)}
-            onRemove={() => removeFile(f.id)}
+            onRemove={() => removeFileAndUnpersist(f.id)}
           />
         ))}
 
