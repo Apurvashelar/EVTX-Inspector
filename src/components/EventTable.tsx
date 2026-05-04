@@ -597,8 +597,9 @@ export function EventTable() {
           onClick={e => e.stopPropagation()}
           style={{
             position: 'fixed',
-            left: contextMenu.x,
-            top: contextMenu.y,
+            // Clamp so the menu never overflows the viewport
+            left: Math.min(contextMenu.x, window.innerWidth - 196),
+            top: Math.min(contextMenu.y, window.innerHeight - (contextMenu.colId ? 260 : 200)),
             zIndex: 50,
             background: 'var(--bg-surface)',
             border: '1px solid var(--border)',

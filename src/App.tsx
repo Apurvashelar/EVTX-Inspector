@@ -27,13 +27,6 @@ export default function App() {
   const activeFile = useActiveFile()
   const hasActiveFile = !!activeFile
 
-  // Apply initial theme attribute synchronously to prevent flash
-  useEffect(() => {
-    const stored = localStorage.getItem('evtx-theme')
-    const initial = stored === 'light' ? 'light' : 'dark'
-    document.documentElement.setAttribute('data-theme', initial)
-  }, [])
-
   return (
     <div className="flex flex-col h-screen" style={{ background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
       {/* App header */}
@@ -42,20 +35,10 @@ export default function App() {
         style={{ background: 'var(--bg-surface)' }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ color: 'var(--accent-blue)', flexShrink: 0 }}>
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <polyline points="14 2 14 8 20 8"
-            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <line x1="8" y1="13" x2="16" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          <line x1="8" y1="17" x2="14" y2="17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.8"/>
+          <path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
         </svg>
-        <span className="font-semibold text-sm tracking-tight">EVTX Investigator</span>
-        <span
-          className="text-[10px] px-1.5 py-0.5 rounded"
-          style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
-        >
-          beta
-        </span>
+        <span className="font-semibold text-sm tracking-tight">EVTX Inspector</span>
 
         <div className="flex-1" />
 
@@ -71,14 +54,12 @@ export default function App() {
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            /* Sun icon */
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
               <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           ) : (
-            /* Moon icon */
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
                 stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

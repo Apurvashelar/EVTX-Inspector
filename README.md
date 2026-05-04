@@ -1,8 +1,8 @@
-# EventSift
+# EVTX Inspector
 
 > A fast, privacy-first Windows Event Log analyzer that runs entirely in your browser.
 
-EventSift lets incident responders and forensic analysts investigate Windows `.evtx` files and CSV event log exports without installing anything and without uploading data anywhere. All parsing, filtering, and flagging happens locally in Web Workers.
+EVTX Inspector lets incident responders and forensic analysts investigate Windows `.evtx` files and CSV event log exports without installing anything and without uploading data anywhere. All parsing, filtering, and flagging happens locally in Web Workers.
 
 ---
 
@@ -30,8 +30,8 @@ EventSift lets incident responders and forensic analysts investigate Windows `.e
 **Requirements:** Node.js 18+ · npm 9+
 
 ```bash
-git clone https://github.com/your-org/eventsift.git
-cd eventsift
+git clone https://github.com/your-org/evtx-inspector.git
+cd evtx-inspector
 npm install
 npm run dev          # → http://localhost:5173
 ```
@@ -119,7 +119,7 @@ Any CSV with a header row. Column names from common tools are auto-recognized:
 
 All processing runs in your browser. Nothing is transmitted to any server. The only data written to `localStorage` is:
 - Your theme preference (`evtx-theme`)
-- Row flags (`evtx-investigator-flags`) — keyed by file hash, not file content
+- Row flags (`evtx-inspector-flags`) — keyed by file hash, not file content
 
 No analytics, no error reporting, no external requests of any kind.
 

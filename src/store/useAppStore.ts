@@ -31,7 +31,7 @@ export const useFlagStore = create<FlagStore>()(
       },
       getFlags: (fileHash) => get().flags[fileHash] ?? {},
     }),
-    { name: 'evtx-investigator-flags' }
+    { name: 'evtx-inspector-flags' }
   )
 )
 

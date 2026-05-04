@@ -24,7 +24,6 @@ export function Toolbar() {
 
   const [showColumnsMenu, setShowColumnsMenu] = useState(false)
   const columnsMenuRef = useRef<HTMLDivElement>(null)
-  const searchRef = useRef<HTMLInputElement>(null)
 
   // Local date buffers — only committed to store when user clicks OK
   const [localFrom, setLocalFrom] = useState(timeFrom)
@@ -87,7 +86,8 @@ export function Toolbar() {
     a.href = url
     a.download = `flagged_${metadata.name.replace(/\.[^.]+$/, '')}.csv`
     a.click()
-    URL.revokeObjectURL(url)
+    // Defer revocation so the browser has time to initiate the download
+    setTimeout(() => URL.revokeObjectURL(url), 100)
   }, [metadata, columnMeta, entry?.rows, flags])
 
   if (!metadata) return null
@@ -111,7 +111,6 @@ export function Toolbar() {
           <path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
         </svg>
         <input
-          ref={searchRef}
           type="text"
           placeholder="Search all columns…"
           value={globalSearch}

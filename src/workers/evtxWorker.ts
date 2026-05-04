@@ -32,8 +32,11 @@ self.onmessage = (e: MessageEvent) => {
     const Klass = EvtxFile as unknown as new (buf: Uint8Array) => any
     const file = new Klass(uint8)
 
-    const stats = file.getStats()
-    const estimatedTotal = stats.chunkCount * 60 // ~60 records per chunk on average
+    let estimatedTotal = 1000
+    try {
+      const stats = file.getStats()
+      estimatedTotal = (stats?.chunkCount ?? 0) * 60 || 1000
+    } catch { /* getStats unavailable in some library versions — use fallback */ }
 
     const rows: DataRow[] = []
     let loaded = 0
