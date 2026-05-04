@@ -3,8 +3,6 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
-import { cloudflare } from "@cloudflare/vite-plugin";
-
 // Replace process.env in @ts-evtx/* at transform time so it works even when
 // the package is not pre-bundled by optimizeDeps (dev mode serves it raw).
 const patchEvtxProcessEnv: Plugin = {
@@ -17,7 +15,7 @@ const patchEvtxProcessEnv: Plugin = {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), patchEvtxProcessEnv, cloudflare()],
+  plugins: [react(), tailwindcss(), patchEvtxProcessEnv],
   define: {
     'process.env': JSON.stringify({}),
   },
