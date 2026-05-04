@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "npm run build && wrangler dev --assets dist",
-    "deploy": "npm run build && wrangler deploy --assets dist"
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

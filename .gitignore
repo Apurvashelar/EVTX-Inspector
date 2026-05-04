@@ -29,3 +29,6 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+# Sample Directory
+Sample_test_files/
