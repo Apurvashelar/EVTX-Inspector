@@ -13,11 +13,13 @@
   X-Robots-Tag: index, follow
 
 /*.html
-  # HTML must never be served stale — Googlebot needs the latest version
-  Cache-Control: no-cache, no-store, must-revalidate
+  # `no-cache` revalidates with the server every load but still allows the
+  # browser to use a cached copy when the validator matches (304 Not Modified).
+  # `no-store` disables that — bad for repeat-visit performance, no SEO benefit.
+  Cache-Control: no-cache, must-revalidate
 
 /
-  Cache-Control: no-cache, no-store, must-revalidate
+  Cache-Control: no-cache, must-revalidate
 
 /assets/*
   # Hashed assets are immutable — safe to cache forever

@@ -103,7 +103,7 @@ export default function App() {
           <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.8"/>
           <path d="m21 21-4.35-4.35" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
         </svg>
-        <span className="font-semibold text-sm tracking-tight">EVTX Inspector</span>
+        <h1 className="font-semibold text-sm tracking-tight m-0">EVTX Inspector</h1>
 
         <div className="flex-1" />
 

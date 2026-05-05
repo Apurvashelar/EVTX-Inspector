@@ -2,7 +2,31 @@
 
 > A fast, privacy-first Windows Event Log analyzer that runs entirely in your browser.
 
+**[→ Try it now](https://evtx-inspector.apurvashelar303.workers.dev/)** — no install, no upload.
+
 EVTX Inspector lets incident responders and forensic analysts investigate Windows `.evtx` files and CSV event log exports without installing anything and without uploading data anywhere. All parsing, filtering, and flagging happens locally in Web Workers.
+
+---
+
+## The problem
+
+Eric Zimmerman's **EvtxECmd** + **Timeline Explorer** is the gold standard for Windows Event Log triage — but it's Windows-only. Analysts on **macOS** and **Linux** have no equivalent investigation UI. The options today are:
+
+- Spin up a Windows VM just to open an EVTX file in a usable GUI.
+- Pipe the file through CLI tools (Hayabusa, Chainsaw) — powerful, but headless: they produce output files, not interactive triage environments.
+- Open CSV exports in Excel — no per-column filtering, no row flagging, no forensics-aware features.
+- Use [omerbenamram.github.io/evtx](https://omerbenamram.github.io/evtx/) — excellent parsing, but no CSV support and no investigation workflow (flags, per-column filtering, multi-file).
+
+EVTX Inspector closes that gap: a zero-install, browser-based investigation surface with the column filtering, row flagging, and CSV-export support analysts actually use during triage — running on any OS, with no data ever leaving the machine.
+
+---
+
+## Demo
+
+<!-- Replace with a GIF showing: drop a file → filter a column → flag a row → export. -->
+<!-- Recommended: 1280×720, ≤ 8 MB, ≤ 15 s. Place at docs/demo.gif. -->
+
+![EVTX Inspector demo](docs/demo.gif)
 
 ---
 
@@ -30,8 +54,8 @@ EVTX Inspector lets incident responders and forensic analysts investigate Window
 **Requirements:** Node.js 18+ · npm 9+
 
 ```bash
-git clone https://github.com/your-org/evtx-inspector.git
-cd evtx-inspector
+git clone https://github.com/Apurvashelar/EVTX-Inspector.git
+cd EVTX-Inspector
 npm install
 npm run dev          # → http://localhost:5173
 ```

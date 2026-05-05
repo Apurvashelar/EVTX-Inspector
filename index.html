@@ -151,7 +151,43 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- ===== Pre-rendered SEO content =====
+           Replaced by React on hydration. Visible only to crawlers that don't
+           execute JavaScript (Bing, LinkedIn unfurl, Slack scraper, etc.) so the
+           page indexes with real keyword-relevant copy instead of an empty body.
+      -->
+      <header>
+        <h1>EVTX Inspector — Online Windows Event Log Viewer for macOS, Linux &amp; Windows</h1>
+        <p>A free, browser-based Windows Event Log analyzer. Open and investigate <code>.evtx</code> files and CSV event log exports entirely in your browser — no installation, no upload, nothing leaves your machine.</p>
+      </header>
+      <main>
+        <section>
+          <h2>What it does</h2>
+          <p>EVTX Inspector parses Windows <code>.evtx</code> binary event logs and CSV exports (from EvtxECmd, Hayabusa, Chainsaw, or <code>Get-WinEvent</code>) directly in the browser using WebAssembly and Web Workers. Built for DFIR analysts and incident responders working on macOS or Linux who would otherwise need a Windows VM to open these files.</p>
+        </section>
+        <section>
+          <h2>Features</h2>
+          <ul>
+            <li>Native <code>.evtx</code> and CSV file support</li>
+            <li>Per-column filtering with OR logic, global search, and time-range picker</li>
+            <li>Row flagging (Suspicious, Reviewed, Noteworthy) with localStorage persistence</li>
+            <li>Multi-file investigation — open many logs at once, switch between them</li>
+            <li>Virtual scroll handles hundreds of thousands of events without pagination</li>
+            <li>Export flagged rows to CSV for reporting</li>
+            <li>Dark and light themes</li>
+            <li>Zero telemetry, zero uploads, zero cookies</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Why it exists</h2>
+          <p>Eric Zimmerman's EvtxECmd and Timeline Explorer are the gold standard for Windows Event Log triage, but they are Windows-only. CLI tools like Hayabusa and Chainsaw are headless. Existing browser viewers do not support CSV exports or row flagging. EVTX Inspector closes that gap with a zero-install investigation surface for any OS.</p>
+        </section>
+        <noscript>
+          <p><strong>This application requires JavaScript.</strong> Please enable JavaScript in your browser settings to use EVTX Inspector. All processing still happens locally — no data is transmitted to any server.</p>
+        </noscript>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
